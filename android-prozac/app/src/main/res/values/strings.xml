@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Prozac</string>
+    <string name="walton_api_username"></string>
+    <string name="walton_api_password"></string>
 </resources>
