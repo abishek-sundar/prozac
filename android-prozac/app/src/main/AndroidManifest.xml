@@ -19,13 +19,132 @@
         <activity android:name=".DeepLink">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="prozac" android:host="prozachtn" />
-                <data android:scheme="prozac" android:host="prozachtn" />
+
+                <data
+                    android:host="prozachtn"
+                    android:scheme="prozac" />
+                <data
+                    android:host="prozachtn"
+                    android:scheme="prozac" />
             </intent-filter>
         </activity>
+        <activity android:name=".Sad">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="rishikeshdevsot.github.io"
+                    android:pathPrefix="/htndlsad/" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="rishikeshdevsot.github.io"
+                    android:pathPrefix="/sad" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="prozac"
+                    android:pathPrefix="/htndlsad/" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="prozac"
+                    android:pathPrefix="/sad" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="prozac"
+                    android:host="rishikeshdevsot.github.io"
+                    android:pathPrefix="/htndlsad/" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="prozac"
+                    android:host="rishikeshdevsot.github.io"
+                    android:pathPrefix="/sad" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="prozac"
+                    android:host="prozac"
+                    android:pathPrefix="/htndlsad/" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="prozac"
+                    android:host="prozac"
+                    android:pathPrefix="/sad" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="http"
+                    android:host="rishikeshdevsot.github.io"
+                    android:pathPattern="/htndlsad/" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Anxious">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="prozac"
+                    android:pathPrefix="/anxious"
+                    android:scheme="prozac" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
