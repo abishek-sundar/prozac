@@ -144,6 +144,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
             Log.d("re:", listName.get(i).getName());
         }
 
+
         Log.d("re:", "END");
         db.close();
         return listName;

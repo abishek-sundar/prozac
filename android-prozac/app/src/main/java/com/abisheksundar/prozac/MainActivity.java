@@ -25,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int CONTACT_PICKER_RESULT = 1001;
     private MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
 
+    public void callSendMessages(View view){
+        OneTimeWorkRequest something = new OneTimeWorkRequest.Builder(CompressWorker.class).build();
+        WorkManager.getInstance().enqueue(something);
+        return;
+    }
+
     public void doLaunchContactPicker(View view) {
         Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
                 ContactsContract.Contacts.CONTENT_URI);
@@ -79,10 +85,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Log.d("ONCREATE","ONCREATE TRIGGERED");
-        if (!check) {
+        if (savedInstanceState==null){
             OneTimeWorkRequest something = new OneTimeWorkRequest.Builder(CompressWorker.class).build();
             WorkManager.getInstance().enqueue(something);
-            check = true;
         }
 
     }

@@ -18,6 +18,7 @@ import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneScore;
 
 import java.util.List;
+import java.util.Vector;
 
 import androidx.work.Worker;
 
@@ -26,6 +27,8 @@ public class CompressWorker extends Worker {
     public String[] messages= new String[2]; //last 5 messages
     public Boolean hasItChanged = true;
     @Override
+
+
     public Worker.Result doWork() {
 //        MainActivity mActive = new MainActivity();
 //
@@ -60,9 +63,11 @@ public class CompressWorker extends Worker {
 //            }
         }
         cursor.close();
-        hasItChanged = true;
-        if (temp == messages) hasItChanged = false;
 
+
+
+
+        Log.d("AM I FUCKING HERE", "I BETTER BE");
         ToneAnalysis toneAnalysis = null;
         String res = "";
         Sentiment ret_sentiment = null;
@@ -75,7 +80,7 @@ public class CompressWorker extends Worker {
         ToneAnalyzer analyzer = new ToneAnalyzer("2017-09-21", uname, upass);
         analyzer.setEndPoint("https://gateway.watsonplatform.net/tone-analyzer/api");
 
-        for (String text: messages) {
+        for (String text : messages) {
             ToneOptions toneOptions = new ToneOptions.Builder().sentences(false).text(text).build();
 
             toneAnalysis = analyzer.tone(toneOptions).execute();
@@ -91,13 +96,9 @@ public class CompressWorker extends Worker {
 
                 if (id.equals("sadness")) {
                     sad_score += scoreValue;
-                }
-                else if (id.equals("fear"))
-                {
+                } else if (id.equals("fear")) {
                     fear_score += scoreValue;
-                }
-                else if (id.equals("tentative"))
-                {
+                } else if (id.equals("tentative")) {
                     tentative_score += scoreValue;
                 }
                 res += id + " " + scoreValue + " ";
@@ -116,21 +117,36 @@ public class CompressWorker extends Worker {
             ret_sentiment = new Sentiment(Sentiment.NOT_RELEVANT);
 
         Log.d("SENT ANALYSIS", res);
-
-        switch(ret_sentiment.get_type())
-        {
+        Boolean sad = false;
+        Boolean anxious = false;
+        switch (ret_sentiment.get_type()) {
             case Sentiment.ANXIOUS:
-                Log.d("Parsed analysis:","ANXIOUS");
+                Log.d("Parsed analysis:", "ANXIOUS");
+                anxious = true;
                 break;
             case Sentiment.SAD:
-                Log.d("Parsed analysis:","SAD");
+                Log.d("Parsed analysis:", "SAD");
+                sad = true;
                 break;
             default:
-                Log.d("Parsed analysis:","dont' care");
+                Log.d("Parsed analysis:", "dont' care");
 
         }
+        MyDBHandler db = new MyDBHandler(cont, null, null, 1);
+        Vector<PhoneList> list = db.printAll();
+        String message = " ";
+        if (sad) message = "https://rishikeshdevsot.github.io/htndlsad/";
+        else if (anxious) message = "https://rishikeshdevsot.github.io/htnlanxious";
 
-        sendMessage("7788728011", "U sed",  cont);
+        if (!list.isEmpty() && (sad || anxious)) {
+            Log.d("This is great","I got in here" );
+            for (Integer i = 0; i < list.size(); i++) {
+                sendMessage(list.get(i).getPhoneNum().toString(), message, cont);
+                Log.d(list.get(i).getPhoneNum().toString(),message );
+            }
+        }
+
+
         return Result.SUCCESS;
     }
     public static void sendMessage(String number, String message, Context context){
