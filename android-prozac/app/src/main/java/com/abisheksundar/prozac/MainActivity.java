@@ -3,6 +3,7 @@ package com.abisheksundar.prozac;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Looper;
@@ -13,7 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
+import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 import androidx.work.OneTimeWorkRequest;
@@ -24,6 +30,9 @@ import androidx.work.Worker;
 public class MainActivity extends AppCompatActivity {
     private static final int CONTACT_PICKER_RESULT = 1001;
     private MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+    private ListView mListView = null;
+    private Cursor mCursor;
+    private List<String> mContactContent;
 
     public void callSendMessages(View view){
         OneTimeWorkRequest something = new OneTimeWorkRequest.Builder(CompressWorker.class).build();
@@ -35,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
         Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
                 ContactsContract.Contacts.CONTENT_URI);
         startActivityForResult(contactPickerIntent, CONTACT_PICKER_RESULT);
+    }
+
+    private ListView getContactListView()
+    {
+        if (mListView == null)
+            mListView = (ListView) this.findViewById(R.id.contact_list);
+
+        return mListView;
     }
 
     @Override
@@ -84,14 +101,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d("ONCREATE","ONCREATE TRIGGERED");
+
         if (savedInstanceState==null){
             OneTimeWorkRequest something = new OneTimeWorkRequest.Builder(CompressWorker.class).build();
             WorkManager.getInstance().enqueue(something);
         }
 
+        if (mContactContent == null) mContactContent = new Vector();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        ListView lv = getContactListView();
+        SQLiteDatabase db = dbHandler.getReadableDatabase();
+        String q = "Select * FROM " + MyDBHandler.TABLE_NAME;
+        Cursor c = null;
+        if (db != null) c = db.rawQuery(q, null);
+        if (c != null && c.getCount() > 0) {
+            mContactContent.clear();
+            while (c.moveToNext())
+            {
+                String name = c.getString(0);
+                mContactContent.add(name);
+            }
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1   , mContactContent);
+        lv.setAdapter(adapter);
+    }
 }
-
-
