@@ -13,13 +13,15 @@ import androidx.work.Worker;
 
 
 public class CompressWorker extends Worker {
+    public String[] messages= new String[5]; //last 5 messages
+    public Boolean hasItChanged = true;
     @Override
     public Worker.Result doWork() {
 //        MainActivity mActive = new MainActivity();
 //
 //        mActive.displaySmsLog();
         Context cont = this.getApplicationContext();
-
+        String[] temp = messages;
         Uri msgs = Uri.parse("content://sms/sent");
         Boolean in = false;
         //Cursor cursor = managedQuery(allMessages, null, null, null, null); Both are same
@@ -29,11 +31,16 @@ public class CompressWorker extends Worker {
                 null, null, null);
         in = true;
         Integer count = 0;
-        while (cursor.moveToNext()&& count < 2) {
+        while (cursor.moveToNext() && count<5) {
+
             for (int i = 0; i < cursor.getColumnCount(); i++) {
-                        Log.d(cursor.getColumnName(i) + "", cursor.getString(i) + "");
+                if (i == 12) {
+                    Log.d(cursor.getColumnName(i) + "", cursor.getString(i));
+                    messages[count] = cursor.getString(i);
+                }
             }
             count++;
+            Log.d("**************","*******************************************");
 //                }
 //            }
 //            else {
@@ -43,6 +50,8 @@ public class CompressWorker extends Worker {
 //            }
         }
         cursor.close();
+        hasItChanged = true;
+        if (temp == messages) hasItChanged = false;
 
         return Result.SUCCESS;
     }
