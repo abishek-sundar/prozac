@@ -15,7 +15,7 @@
         android:layout_margin="8dp"
         android:text="Proactive Conversations"
         android:textSize="40dp"
-
+        android:onClick="callSendMessages"
         />
     <ListView
         android:id="@+id/contact_list"
