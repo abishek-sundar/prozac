@@ -16,7 +16,7 @@ public class Sad extends AppCompatActivity {
         if (data != null && data.isHierarchical()) {
             String uri = this.getIntent().getDataString();
             TextView dlb = findViewById(R.id.sad_id);
-            dlb.setText("Your friend is Sad. Can you please try to tak to them?");
+            //dlb.setText("Your friend is Sad. Can you please try to tak to them?");
             Log.i("MyApp", "Deep link clicked " + uri);
         }
     }
