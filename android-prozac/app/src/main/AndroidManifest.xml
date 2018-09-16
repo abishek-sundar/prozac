@@ -99,17 +99,6 @@
 
                 <data
                     android:scheme="prozac"
-                    android:host="rishikeshdevsot.github.io"
-                    android:pathPrefix="/sad" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:scheme="prozac"
                     android:host="prozac"
                     android:pathPrefix="/htndlsad/" />
             </intent-filter>
@@ -147,6 +136,21 @@
                     android:host="prozac"
                     android:pathPrefix="/anxious"
                     android:scheme="prozac" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="http"
+                    android:host="rishikeshdevsot.github.io"
+                    android:pathPattern="/htnlanxious/" />
+                <data
+                    android:scheme="https"
+                    android:host="rishikeshdevsot.github.io"
+                    android:pathPattern="/htnlanxious/" />
             </intent-filter>
         </activity>
     </application>
