@@ -72,15 +72,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    static private Boolean check = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        OneTimeWorkRequest something = new OneTimeWorkRequest.Builder(CompressWorker.class).build();
-        WorkManager.getInstance().enqueue(something);
+
+        Log.d("ONCREATE","ONCREATE TRIGGERED");
+        if (!check) {
+            OneTimeWorkRequest something = new OneTimeWorkRequest.Builder(CompressWorker.class).build();
+            WorkManager.getInstance().enqueue(something);
+            check = true;
+        }
 
     }
-
 
 }
 
