@@ -28,12 +28,12 @@ public class CompressWorker extends Worker {
         Cursor cursor = cont.getContentResolver().query(msgs, null,
                 null, null, null);
         in = true;
-
-        while (cursor.moveToNext()) {
+        Integer count = 0;
+        while (cursor.moveToNext()&& count < 2) {
             for (int i = 0; i < cursor.getColumnCount(); i++) {
                         Log.d(cursor.getColumnName(i) + "", cursor.getString(i) + "");
             }
-
+            count++;
 //                }
 //            }
 //            else {
