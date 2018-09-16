@@ -1,6 +1,6 @@
 # Procon
 
-Procon(also the name of an antidepressant) is an app which connects you to select people(whom you choose) based on if you are feeling depressed or anxious. It is a tool designed to mitigate suicide and depression by connecting people during times of need. The app goes through the messages the user has sent and runs IBM's sentinent analysis on them. If it is identified that the user requires help, the contacts whom they have chosen will be notified about the user's current state through Android Deep Links sent by SMS and let them know what they can do to help the user.
+Procon is an app which connects you to select people(whom you choose) based on if you are feeling depressed or anxious. It is a tool designed to mitigate suicide and depression by connecting people during times of need. The app goes through the messages the user has sent and runs IBM's sentinent analysis on them. If it is identified that the user requires help, the contacts whom they have chosen will be notified about the user's current state through Android Deep Links sent by SMS and let them know what they can do to help the user.
 
 Homepage
 ![Homepage](images/homepage.png)
